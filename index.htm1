@@ -1,0 +1,208 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>兒童奶粉選品館｜3–7歲</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#fffaf6;color:#4c4039;
+font-family:"Microsoft JhengHei",Arial,sans-serif}
+header{text-align:center;padding:42px 18px;background:#f5e5de}
+header h1{margin:0 0 8px;font-size:32px}
+header p{margin:0;color:#78655c}
+main{max-width:1200px;margin:auto;padding:28px 18px 50px}
+.tools{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px}
+input,select{padding:12px;border:1px solid #dfcbc1;
+border-radius:10px;font-size:15px;background:white}
+input{flex:1;min-width:200px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.card{background:white;border:1px solid #eee0d9;border-radius:15px;
+overflow:hidden;display:flex;flex-direction:column;
+box-shadow:0 5px 18px #63452d0c}
+.photo{height:245px;padding:12px;background:white}
+.photo a{height:100%;display:flex;align-items:center;justify-content:center}
+.photo img{width:100%;height:100%;object-fit:contain}
+.info{padding:17px;display:flex;flex-direction:column;flex:1}
+.tag{font-size:12px;background:#e9efe5;color:#50694e;
+padding:5px 10px;border-radius:20px;align-self:flex-start}
+h2{font-size:18px;margin:12px 0 6px}
+.weight{font-size:13px;color:#83756d}
+.price{font-size:23px;font-weight:bold;color:#b66e57;margin:12px 0}
+.shop{font-size:13px;color:#83756d;margin-bottom:14px}
+.buy{margin-top:auto;text-decoration:none;text-align:center;
+background:#b97865;color:white;padding:11px;border-radius:9px}
+.buy:hover{background:#9d604f}
+.note{background:#f4eee7;padding:18px;border-radius:12px;
+font-size:13px;line-height:1.8;margin-top:28px}
+footer{text-align:center;background:#f5e5de;padding:22px;font-size:13px}
+</style>
+</head>
+<body>
+<header>
+  <h1>兒童奶粉選品館</h1>
+  <p>3–7 歲兒童營養配方｜單罐預算 NT$2,000 以下</p>
+</header>
+
+<main>
+  <div class="tools">
+    <input id="search" placeholder="搜尋品牌或商品名稱">
+    <select id="sort">
+      <option value="default">預設排序</option>
+      <option value="low">價格由低至高</option>
+      <option value="high">價格由高至低</option>
+    </select>
+  </div>
+
+  <section class="grid" id="grid"></section>
+
+  <div class="note">
+    <strong>商品資訊說明</strong><br>
+    • 售價為搜尋到的通路參考價，並非保證即時價格。<br>
+    • 點擊商品圖片或購買按鈕，可前往通路確認實際包裝、規格與庫存。<br>
+    • 本範例的商品圖片先使用佔位圖，請將 image 欄位替換為取得授權的實際商品圖片網址，才會顯示真實包裝。<br>
+    • 購買前請確認適用年齡、成分與產品標示。
+  </div>
+</main>
+
+<footer>© 2026 兒童奶粉選品館</footer>
+
+<script>
+const products = [
+  {
+    name:"明治兒童營養配方食品",
+    weight:"900g／罐｜3–7歲",
+    price:500,
+    shop:"媽媽好線上購物",
+    url:"https://shop.mamahow.com.tw/v2/official/SalePageCategory/403763",
+    image:"https://placehold.co/500x500/fffaf6/876b5e?text=Meiji+900g"
+  },
+  {
+    name:"豐力富 Nature+ 金護兒童奶粉",
+    weight:"1.5kg／罐｜3–7歲",
+    price:823,
+    shop:"弘安藥局",
+    url:"https://www.hung-an.com.tw/product.php?c1=4",
+    image:"https://placehold.co/500x500/fffaf6/876b5e?text=Nature%2B+1.5kg"
+  },
+  {
+    name:"豐力富 全能 HMO+ 兒童營養配方",
+    weight:"850g／罐｜3–7歲",
+    price:595,
+    shop:"媽媽好線上購物",
+    url:"https://shop.mamahow.com.tw/v2/official/SalePageCategory/403763",
+    image:"https://placehold.co/500x500/fffaf6/876b5e?text=HMO%2B+850g"
+  },
+  {
+    name:"桂格 愛力心優護小朋友營養奶粉 4號",
+    weight:"800g／罐｜3–7歲",
+    price:780,
+    shop:"媽媽好線上購物",
+    url:"https://shop.mamahow.com.tw/v2/official/SalePageCategory/403763",
+    image:"https://placehold.co/500x500/fffaf6/876b5e?text=Quaker+800g"
+  },
+  {
+    name:"亞培 心美力兒童奶粉 4號",
+    weight:"1,600g／罐｜3–7歲",
+    price:1089,
+    shop:"弘安藥局",
+    url:"https://www.hung-an.com.tw/product.php?c2=49",
+    image:"https://placehold.co/500x500/fffaf6/876b5e?text=Similac+4"
+  },
+  {
+    name:"亞培 心美力經典 4號兒童配方",
+    weight:"850g／罐｜兒童配方",
+    price:729,
+    shop:"弘安藥局",
+    url:"https://www.hung-an.com.tw/product.php?c2=49",
+    image:"https://placehold.co/500x500/fffaf6/876b5e?text=Similac+850g"
+  },
+  {
+    name:"美強生 Enfa A+ 優生兒童營養配方",
+    weight:"850g／罐｜兒童配方",
+    price:589,
+    shop:"弘安藥局",
+    url:"https://www.hung-an.com.tw/product.php?c1=4",
+    image:"https://placehold.co/500x500/fffaf6/876b5e?text=Enfa+A%2B"
+  },
+  {
+    name:"惠氏 S-26 金學兒樂兒童配方",
+    weight:"1,600g／罐｜兒童配方",
+    price:949,
+    shop:"弘安藥局",
+    url:"https://www.hung-an.com.tw/product.php?c1=4",
+    image:"https://placehold.co/500x500/fffaf6/876b5e?text=S26+1600g"
+  },
+  {
+    name:"克寧 Super Kid 兒童成長奶粉",
+    weight:"800g／罐｜4歲以上",
+    price:569,
+    shop:"媽媽好專業婦幼用品",
+    url:"https://shop.mamahow.com.tw/v2/official/SalePageCategory/403763",
+    image:"https://placehold.co/500x500/fffaf6/876b5e?text=Super+Kid"
+  },
+  {
+    name:"雀巢能恩 4號兒童配方",
+    weight:"800g／罐｜3–7歲",
+    price:669,
+    shop:"召安大藥局",
+    url:"https://chananpharmacy.waca.tw/category/137392",
+    image:"https://placehold.co/500x500/fffaf6/876b5e?text=NAN+4"
+  },
+  {
+    name:"諾優能金版 4號兒童成長配方",
+    weight:"900g／罐｜3–7歲",
+    price:669,
+    shop:"召安大藥局",
+    url:"https://chananpharmacy.waca.tw/category/137392",
+    image:"https://placehold.co/500x500/fffaf6/876b5e?text=Nutrilon+4"
+  },
+  {
+    name:"明治兒童營養配方食品",
+    weight:"900g／罐｜3–7歲",
+    price:460,
+    shop:"弘安藥局",
+    url:"https://www.hung-an.com.tw/product.php?c1=4",
+    image:"https://placehold.co/500x500/fffaf6/876b5e?text=Meiji+Kids"
+  }
+];
+
+const grid = document.getElementById("grid");
+const search = document.getElementById("search");
+const sort = document.getElementById("sort");
+
+function render(){
+  let items = products.filter(p =>
+    p.name.toLowerCase().includes(search.value.trim().toLowerCase())
+  );
+
+  if(sort.value === "low") items.sort((a,b)=>a.price-b.price);
+  if(sort.value === "high") items.sort((a,b)=>b.price-a.price);
+
+  grid.innerHTML = items.map(p => `
+    <article class="card">
+      <div class="photo">
+        <a href="${p.url}" target="_blank" rel="noopener noreferrer">
+          <img src="${p.image}" alt="${p.name}">
+        </a>
+      </div>
+      <div class="info">
+        <span class="tag">兒童營養配方</span>
+        <h2>${p.name}</h2>
+        <div class="weight">${p.weight}</div>
+        <div class="price">NT$${p.price.toLocaleString()}</div>
+        <div class="shop">販售通路：${p.shop}</div>
+        <a class="buy" href="${p.url}" target="_blank"
+           rel="noopener noreferrer">查看商品與購買</a>
+      </div>
+    </article>
+  `).join("");
+}
+
+search.addEventListener("input", render);
+sort.addEventListener("change", render);
+render();
+</script>
+</body>
+</html>
